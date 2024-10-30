@@ -1,0 +1,94 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch iLogtail",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/output/ilogtail",
+            "args": [
+                "-ilogtail_disable_core=false"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/output",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(ctest) Launch UT",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${cmake.testProgram}",
+            "args": [
+                "${cmake.testArgs}"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${cmake.testWorkingDirectory}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch memory dump",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/output/ilogtail",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/output",
+            "environment": [],
+            "externalConsole": false,
+            "coreDumpPath": "${workspaceFolder}/output/core",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(go) Launch Plugin Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/plugin_main",
+            "env": {
+                "LD_LIBRARY_PATH": "${workspaceFolder}/pkg/logtail"
+            }
+        }
+    ]
+}

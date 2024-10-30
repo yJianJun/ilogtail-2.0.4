@@ -1,0 +1,101 @@
+### VSCode
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+# Local History for Visual Studio Code
+.history/
+# Built Visual Studio Code Extensions
+*.vsix
+# Dev Container
+.devcontainer/
+
+### GoLand
+.idea
+
+### MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Thumbnails
+._*
+
+### Common
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+# Compiled Static libraries
+*.a
+*.lib
+# Executables
+*.exe
+*.out
+*.app
+
+### C++
+# Prerequisites
+*.d
+# Compiled Object files
+*.o
+*.obj
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+# Custom
+/build/
+core/build/
+core/log_pb/*.pb.*
+core/common/Version.cpp
+!/Makefile
+# Enterprise
+core/installer/public/
+core/unittest/ut.output/
+core/test/**/report/
+
+### Go
+# Test binary, built with `go test -c`
+*.test
+# Dependency directories (remove the comment below to include it)
+vendor/
+# Go workspace file
+go.work
+go.work.sum
+# Profile
+*.prof
+# Coverage
+.coretestCoverage.txt
+.testCoverage.txt
+e2e-engine-coverage.txt
+# Plugin
+plugins/all/
+/external_plugins.yml
+*.go.mod
+*.go.mod.sum
+# Custom
+plugin_logger.xml
+
+### E2E
+/*-test/
+
+### License
+find_licenses/
+license_coverage.txt
+
+### Others
+*.bak
+/bin/
+/output/
+/generated_files/
+/dist/
+/tags/

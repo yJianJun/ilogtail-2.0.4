@@ -1,0 +1,46 @@
+# Copyright 2021 iLogtail Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+FROM --platform=$TARGETPLATFORM centos:centos7.9.2009 as build
+ARG VERSION=2.0.4
+ARG TARGETPLATFORM
+WORKDIR /usr/local
+COPY dist/ilogtail-${VERSION}.linux-*.tar.gz .
+RUN tar -xzf ilogtail-${VERSION}.linux-${TARGETPLATFORM##*/}.tar.gz
+
+
+FROM centos:centos7.9.2009
+MAINTAINER TomYu yyuuttaaoo@gmail.com
+
+ENV container docker
+
+RUN yum update -y && yum upgrade -y && yum -y clean all && rm -fr /var/cache && rm -rf /core.*
+
+ARG HOST_OS=Linux
+ARG VERSION=2.0.4
+ARG TARGETPLATFORM
+
+COPY --from=build /usr/local/ilogtail-${VERSION} /usr/local/ilogtail
+RUN chown -R $(whoami) /usr/local/ilogtail/ && \
+    chmod 755 /usr/local/ilogtail/ilogtail && \
+    mkdir /usr/local/ilogtail/checkpoint
+
+WORKDIR /usr/local/ilogtail
+COPY example_config/start_with_docker/ilogtail_config.json /usr/local/ilogtail/
+COPY scripts/ilogtail_control.sh /usr/local/ilogtail/
+
+ENV HTTP_PROBE_PORT=7953 \
+    ALIYUN_LOGTAIL_USER_DEFINED_ID=default \
+    docker_file_cache_path=checkpoint/docker_path_config.json
+CMD ["/usr/local/ilogtail/ilogtail_control.sh", "start_and_block"]
